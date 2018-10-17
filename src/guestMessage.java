@@ -7,12 +7,43 @@ import org.json.simple.parser.ParseException;
 import org.json.simple.*;
 
 public class guestMessage {
+    private String guestName;
+    private String company;
+    private long roomNumber;
+    private long time;
+
+
+    enum greeting {
+        MORNING, AFTERNOON, EVENING
+    }
+
+    enum greetingFrench {
+        MATIN, APRESMIDI, SOIR
+    }
+
     public static void main(String[] args) {
+
+        System.out.println("Enter Guest Name: ");
+        System.out.println("Enter Company Name: ");
+
+
 
         JSONParser jsonParser = new JSONParser();
 
         try {
-            JSONArray data = (JSONArray) jsonParser.parse(new FileReader("/Users/kevinshin/Desktop/KipsuCodingProject/Guests.json"));
+
+            JSONArray companies = (JSONArray) jsonParser.parse(new FileReader("/Users/kevinshin/Desktop/CodingProject/Companies.json"));
+            for (Object obj : companies){
+                JSONObject company = (JSONObject) obj;
+
+                String companyName = (String) company.get("company");
+                long IDnum = (long) company.get("id");
+                String city = (String) company.get("city");
+                String timezone = (String) company.get("timezone");
+
+            }
+
+            JSONArray data = (JSONArray) jsonParser.parse(new FileReader("/Users/kevinshin/Desktop/CodingProject/Guests.json"));
 
             for (Object obj : data){
 
@@ -23,8 +54,8 @@ public class guestMessage {
                 String lastName = (String) person.get("lastName");
                 System.out.println("Last Name: " + lastName);
 
-                long job = (long) person.get("id");
-                System.out.println("ID: " + Long.toString(job));
+                long IDnum = (long) person.get("id");
+                System.out.println("ID: " + Long.toString(IDnum));
 
                 long roomNumber = getRoomNumber(person);
                 System.out.println("Room Number: " + Long.toString(roomNumber));
@@ -42,6 +73,8 @@ public class guestMessage {
         catch(FileNotFoundException exception) { exception.printStackTrace();}
         catch(IOException exception) { exception.printStackTrace();}
         catch(ParseException exception) { exception.printStackTrace();}
+
+
     }
 
     private static long getRoomNumber(JSONObject guest){
