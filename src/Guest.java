@@ -16,26 +16,26 @@ public class Guest {
         this.endTimestamp = endTimestamp;
     }
 
-    private long getroomNumber(){
+    public long getroomNumber(){
         return roomNumber;
     }
 
-    private long getstartTime(){
+    public long getstartTime(){
         return startTimestamp;
     }
 
-    private String getFirstName(){
+    public String getFirstName(){
         return firstName;
     }
-    private String getLastName(){
+    public String getLastName(){
         return lastName;
     }
-    private long getEndTimestamp(){
+    public long getEndTimestamp(){
         return endTimestamp;
     }
 
     public String toString(){
-        String description = "Name: " + firstName + " " + lastName + "\n" + "Room Number: " + Long.toString(roomNumber);
+        String description = firstName + " " + lastName;
         return description;
     }
 }

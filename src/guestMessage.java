@@ -7,45 +7,57 @@ import org.json.simple.parser.ParseException;
 import org.json.simple.*;
 
 public class guestMessage {
+    private Guest guest;
+    private String greetingVariable;
     private String guestName;
-    private String company;
+    private String companyName;
     private long roomNumber;
-    private long time;
-    private String greeting;
+    private long startTimestamp;
+    private long endTimestamp;
+
+    public guestMessage(String guestName, String companyName){
+        this.guestName = guestName;
+        this.companyName = companyName;
+
+    }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        JSONParser jsonParser = new JSONParser();
 
         System.out.println("Enter Guest Name: ");
-        String selectedGuest = scanner.next();
+        String selectedGuest = scanner.nextLine();
         System.out.println("Enter Company Name: ");
-        String selectedCompany = scanner.next();
+        String selectedCompany = scanner.nextLine();
         System.out.println("Type 'Messages' to see pre-written Message Templates, or 'Other' to compose a new template.");
-        String userInput = scanner.next();
+        String userInput = scanner.nextLine();
 
-        if (userInput.equalsIgnoreCase("Messages")) {
-
-            try {
-                JSONArray messages = (JSONArray) jsonParser.parse(new FileReader("/Users/kevinshin/Desktop/KevinShin - CodingSample/CodingProject/messageTemplate.json"));
-                for (Object obj : messages) {
-                    String example = "Jane Doe";
-                    JSONObject message = (JSONObject) obj;
-
-
-                }
-
-            } catch (FileNotFoundException exception) {
-                exception.printStackTrace();
-            } catch (IOException exception) {
-                exception.printStackTrace();
-            } catch (ParseException exception) {
-                exception.printStackTrace();
-            }
-
-
+        guestMessage guestMessage = new guestMessage(selectedGuest,selectedCompany);
+        GuestManager guestmanager = new GuestManager();
+        CompanyManager companyManager = new CompanyManager();
+        List guests = guestmanager.allGuests("/Users/kevinshin/Desktop/KevinShin - CodingSample/CodingProject/Guests.json");
+        List companies = companyManager.allCompanies("/Users/kevinshin/Desktop/KevinShin - CodingSample/CodingProject/Companies.json");
+        for (int i = 0; i < guests.size(); i++){
+            Guest guest = (Guest) guests.get(i);
+            if (guest.toString().equalsIgnoreCase(guestMessage.guestName)){
+                guestMessage.setGuest(guest);
             }
         }
+        for (int i = 0; i<companies.size();i++){
+
+        }
+    }
+
+    private void setGuest(Guest guest){
+        this.guest = guest;
+    }
+
+    private void setRoomNumber(long number){
+        this.roomNumber = number;
+    }
+
+    private void setCompanyName(Company company){
+        this.companyName = companyName;
+    }
     }
 
 

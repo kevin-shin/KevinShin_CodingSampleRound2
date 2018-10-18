@@ -14,7 +14,7 @@ public class CompanyManager {
         this.list = new ArrayList<>();
     }
 
-    private List<Company> allCompanies(String filename) {
+    public List<Company> allCompanies(String filename) {
         JSONParser jsonParser = new JSONParser();
         try {
             JSONArray data = (JSONArray) jsonParser.parse(new FileReader(filename));

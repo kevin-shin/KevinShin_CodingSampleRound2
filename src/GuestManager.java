@@ -11,11 +11,12 @@ public class GuestManager {
     private List<Guest> list;
 
     public GuestManager(){
-        this.list = new ArrayList<>();
+        this.list = new ArrayList();
     }
 
 
-    private List<Guest> allGuests(String filename) {
+    public List<Guest> allGuests(String filename) {
+        List list = new ArrayList<>();
         JSONParser jsonParser = new JSONParser();
         try {
             JSONArray data = (JSONArray) jsonParser.parse(new FileReader(filename));
@@ -41,7 +42,7 @@ public class GuestManager {
         }
         return list;
     }
-    private static long getRoomNumber(JSONObject guest){
+    public long getRoomNumber(JSONObject guest){
         JSONObject reservation = (JSONObject) guest.get("reservation");
 
         long roomNumber = (long) reservation.get("roomNumber");
@@ -49,7 +50,7 @@ public class GuestManager {
 
     }
 
-    private static long getstartTimestamp(JSONObject guest){
+    public long getstartTimestamp(JSONObject guest){
         JSONObject reservation = (JSONObject) guest.get("reservation");
 
         long startTimestamp = (long) reservation.get("startTimestamp");
@@ -57,7 +58,7 @@ public class GuestManager {
 
     }
 
-    private static long getendTimestamp(JSONObject guest){
+    public long getendTimestamp(JSONObject guest){
         JSONObject reservation = (JSONObject) guest.get("reservation");
 
         long endTimestamp = (long) reservation.get("endTimestamp");
