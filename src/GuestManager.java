@@ -7,24 +7,19 @@ import org.json.simple.parser.ParseException;
 import org.json.simple.*;
 
 
+public class GuestManager {
+    private List<Guest> list;
 
-public class JSONtoList {
-
-    public static void main(String[] args){
-        JSONtoList json = new JSONtoList();
-        List guests = json.returnList("/Users/kevinshin/Desktop/KevinShin - CodingSample/CodingProject/Guests.json");
-        for (Object obj: guests){
-
-        }
+    public GuestManager(){
+        this.list = new ArrayList<>();
     }
-    public List<Map<String, String>> returnList(String filename) {
-        JSONParser jsonParser = new JSONParser();
-        List<Map<String, String>> list = new ArrayList<>();
 
+
+    private List<Guest> allGuests(String filename) {
+        JSONParser jsonParser = new JSONParser();
         try {
             JSONArray data = (JSONArray) jsonParser.parse(new FileReader(filename));
             for (Object obj : data) {
-                Map<String, String> personMap = new HashMap<>();
                 JSONObject person = (JSONObject) obj;
                 String firstName = (String) person.get("firstName");
                 String lastName = (String) person.get("lastName");
@@ -33,14 +28,8 @@ public class JSONtoList {
                 long startTimestamp = getstartTimestamp(person);
                 long endTimestamp = getendTimestamp(person);
 
-                personMap.put("firstName", firstName);
-                personMap.put("lastName", lastName);
-                personMap.put("id", Long.toString(IDnum));
-                personMap.put("roomNumber", Long.toString(roomNumber));
-                personMap.put("startTimestamp", Long.toString(startTimestamp));
-                personMap.put("endTimestamp", Long.toString(endTimestamp));
-
-                list.add(personMap);
+                Guest guest = new Guest(IDnum, firstName, lastName, roomNumber, startTimestamp, endTimestamp);
+                list.add(guest);
             }
 
         } catch (FileNotFoundException exception) {
@@ -50,7 +39,6 @@ public class JSONtoList {
         } catch (ParseException exception) {
             exception.printStackTrace();
         }
-
         return list;
     }
     private static long getRoomNumber(JSONObject guest){

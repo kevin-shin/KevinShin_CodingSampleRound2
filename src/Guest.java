@@ -4,22 +4,26 @@ public class Guest {
     private long id;
     private String firstName;
     private String lastName;
-    private HashMap<String,Long> reservation;
+    private long roomNumber;
+    private long startTimestamp;
+    private long endTimestamp;
 
 
-    public Guest(long id, String firstName, String lastName, HashMap<String,Long> reservation){
+    public Guest(long id, String firstName, String lastName, long roomNumber, long startTimestamp, long endTimestamp){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.reservation = reservation;
+        this.roomNumber = roomNumber;
+        this.startTimestamp = startTimestamp;
+        this.endTimestamp = endTimestamp;
     }
 
     private long getroomNumber(){
-        return reservation.get("roomNumber");
+        return roomNumber;
     }
 
     private long getstartTime(){
-        return reservation.get("startTimestamp");
+        return startTimestamp;
     }
 
     private String getFirstName(){
@@ -27,5 +31,13 @@ public class Guest {
     }
     private String getLastName(){
         return lastName;
+    }
+    private long getEndTimestamp(){
+        return endTimestamp;
+    }
+
+    public String toString(){
+        String description = "Name: " + firstName + " " + lastName + "\n" + "Room Number: " + Long.toString(roomNumber);
+        return description;
     }
 }
