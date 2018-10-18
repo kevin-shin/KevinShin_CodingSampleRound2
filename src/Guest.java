@@ -1,5 +1,3 @@
-import java.util.HashMap;
-
 public class Guest {
     private long id;
     private String firstName;
