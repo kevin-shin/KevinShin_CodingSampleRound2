@@ -20,8 +20,6 @@ public class sampleMessages {
         this.company = company;
 }
 
-
-
     public ArrayList<String> returnOrdering(String filename) {
         ArrayList<String> order = new ArrayList<>();
         JSONParser jsonParser = new JSONParser();
@@ -58,7 +56,8 @@ public class sampleMessages {
                 String part3 = getString3(message);
                 String part4 = getString4(message);
 
-                String finalMessage = part1 + part2 + part3 + part4;
+                String finalMessage = "~greeting Varible~ " + this.guest.getFirstName() + part1 + part2 + this.company.getCompany() + part3
+                        + this.guest.getroomNumber() + part4;
                 System.out.println(finalMessage);
             }
         } catch (FileNotFoundException exception) {
