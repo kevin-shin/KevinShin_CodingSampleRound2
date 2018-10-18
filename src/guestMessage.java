@@ -33,15 +33,12 @@ public class guestMessage {
         System.out.println("Type 'Messages' to see preloaded templates, or 'Build' to create your own");
         String userInput = scanner.nextLine();
 
-        if (userInput.equalsIgnoreCase("Messages")){
-
-        }
-
         Guest guest = new Guest(firstName, lastName);
         Company company = new Company(selectedCompany);
         guestMessage guestMessage = new guestMessage(guest,company);
         GuestManager guestmanager = new GuestManager();
         CompanyManager companyManager = new CompanyManager();
+
 
         List guests = guestmanager.allGuests("/Users/kevinshin/Desktop/KevinShin - CodingSample/CodingProject/Guests.json");
         List companies = companyManager.allCompanies("/Users/kevinshin/Desktop/KevinShin - CodingSample/CodingProject/Companies.json");
@@ -61,6 +58,10 @@ public class guestMessage {
         sampleMessages sampleMessages = new sampleMessages(guestMessage.guest, guestMessage.company);
         ArrayList ordering = sampleMessages.returnOrdering("/Users/kevinshin/Desktop/KevinShin - CodingSample/CodingProject/testMessage.json");
 
+        if (userInput.equalsIgnoreCase("Messages")){
+            sampleMessages sample = new sampleMessages(guestMessage.guest, guestMessage.company);
+            sample.buildMessage("/Users/kevinshin/Desktop/KevinShin - CodingSample/CodingProject/testMessage.json");
+        }
     }
 
     private void setGuest(Guest guest){

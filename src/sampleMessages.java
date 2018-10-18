@@ -45,8 +45,9 @@ public class sampleMessages {
         return order;
     }
 
-    public String buildMessage(Guest guest, Company company, String filename){
-        String finalMessage = "";
+    public String buildMessage(String filename){
+
+        String testMessage = "";
         JSONParser jsonParser = new JSONParser();
         try {
             JSONArray messageTemplates = (JSONArray) jsonParser.parse(new FileReader(filename));
@@ -56,8 +57,10 @@ public class sampleMessages {
                 String part2 = getString2(message);
                 String part3 = getString3(message);
                 String part4 = getString4(message);
-            }
 
+                String finalMessage = part1 + part2 + part3 + part4;
+                System.out.println(finalMessage);
+            }
         } catch (FileNotFoundException exception) {
             exception.printStackTrace();
         } catch (IOException exception) {
@@ -65,7 +68,7 @@ public class sampleMessages {
         } catch (ParseException exception) {
             exception.printStackTrace();
         }
-        return finalMessage;
+        return testMessage;
     }
 
     public String getString1(JSONObject message){
