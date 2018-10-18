@@ -10,22 +10,21 @@ public class greetingVariable {
         this.company = company;
         this.guest = guest;
     }
-    public String returnGreeting(long UnixTime){
-        Date relevantTime = new Date(UnixTime*1000L);
+    public String returnGreeting(long UnixTime) {
+        Date relevantTime = new Date(UnixTime * 1000L);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(relevantTime);
         calendar.setTimeZone(TimeZone.getTimeZone(this.company.getTimezone()));
-        int hours = calendar.get(Calendar.HOUR);
-
-        return "Hours: " + Integer.toString(hours);
-    }
-    public static void main(String[] args) {
-        Guest guest = new Guest("Jane","Doe");
-        Company company = new Company("MYCOMPANY", 21, "Minneapolis", "GMT-5");
-
-        greetingVariable greetingVariable = new greetingVariable(company, guest);
-        System.out.println(greetingVariable.returnGreeting(1486654792));
-
-
+        int hours = calendar.get(Calendar.HOUR_OF_DAY);
+        if (0 <= hours && hours < 12) {
+            return "Good morning";
+        }
+        if (12 < hours && hours <= 16 ){
+            return "Good afternoon";
+        }
+        if (16 < hours && hours <= 24){
+            return "Good evening";
+        }
+    return "";
     }
 }

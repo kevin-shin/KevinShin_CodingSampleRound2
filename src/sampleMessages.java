@@ -6,60 +6,57 @@ import org.json.simple.parser.ParseException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class sampleMessages {
-    private String message;
+    private String[] messageOptions;
     private Guest guest;
     private Company company;
+
 
     public sampleMessages(Guest guest, Company company) {
         this.guest = guest;
         this.company = company;
 }
 
-    public ArrayList<String> returnOrdering(String filename) {
-        ArrayList<String> order = new ArrayList<>();
-        JSONParser jsonParser = new JSONParser();
-        try {
-            JSONArray messageTemplates = (JSONArray) jsonParser.parse(new FileReader(filename));
-            for (Object obj : messageTemplates) {
-                JSONObject message = (JSONObject) obj;
-                JSONArray ordering = (JSONArray) message.get("Ordering");
-                for (int i = 0; i<ordering.size();i++){
-                    String myMessage = (String) ordering.get(i);
-                    order.add(myMessage);
-                }
-            }
-        } catch (FileNotFoundException exception) {
-            exception.printStackTrace();
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        } catch (ParseException exception) {
-            exception.printStackTrace();
-        }
-        return order;
-    }
 
     public String buildMessage(String filename){
-
+        greetingVariable greetingVariable = new greetingVariable(this.company, this.guest);
         String testMessage = "";
         JSONParser jsonParser = new JSONParser();
         try {
             JSONArray messageTemplates = (JSONArray) jsonParser.parse(new FileReader(filename));
+            String[] messages = new String[messageTemplates.size()];
+            int i=0;
             for (Object obj : messageTemplates) {
                 JSONObject message = (JSONObject) obj;
+                JSONArray ordering = (JSONArray) message.get("Ordering");
                 String part1 = getString1(message);
                 String part2 = getString2(message);
                 String part3 = getString3(message);
                 String part4 = getString4(message);
 
-                String finalMessage = "~greeting Varible~ " + this.guest.getFirstName() + part1 + part2 + this.company.getCompany() + part3
-                        + this.guest.getroomNumber() + part4;
-                System.out.println(finalMessage);
+                if (ordering.equals(new ArrayList<>(Arrays.asList("name","company","room")))){
+                    System.out.println("Message " + Integer.toString(i+1)+ ":");
+                    String finalMessage = greetingVariable.returnGreeting(this.guest.getstartTime()) + part1 + this.guest.getFirstName() +
+                            part2 + this.company.getCompany() + part3 + this.guest.getroomNumber() + part4;
+                    System.out.println(finalMessage);
+                    messages[i] = finalMessage;
+                    i++;
+                }
+                if (ordering.equals(new ArrayList<>(Arrays.asList("company", "name" ,"room")))){
+                    System.out.println("Message " + Integer.toString(i+1)+ ":");
+                    String finalMessage = greetingVariable.returnGreeting(this.guest.getstartTime()) + part1 + this.company.getCompany() +
+                            part2 + this.guest.getFirstName() + part3 + this.guest.getroomNumber() + part4;
+                    System.out.println(finalMessage);
+                    messages[i] = finalMessage;
+                    i++;
+                }
             }
+            this.messageOptions = messages;
+
         } catch (FileNotFoundException exception) {
             exception.printStackTrace();
         } catch (IOException exception) {
@@ -69,7 +66,9 @@ public class sampleMessages {
         }
         return testMessage;
     }
-
+    public String returnMessage(int index){
+        return this.messageOptions[index-1];
+    }
     public String getString1(JSONObject message){
         JSONObject messageTemplate = (JSONObject) message.get("Message");
 
@@ -95,5 +94,30 @@ public class sampleMessages {
         String string4 = (String) messageTemplate.get("4");
         return string4;
 
+    }
+
+    public ArrayList<ArrayList<String>> returnOrdering(String filename) {
+        ArrayList<ArrayList<String>> mainList = new ArrayList<>();
+        JSONParser jsonParser = new JSONParser();
+        try {
+            JSONArray messageTemplates = (JSONArray) jsonParser.parse(new FileReader(filename));
+            for (Object obj : messageTemplates) {
+                ArrayList<String> order = new ArrayList<>();
+                JSONObject message = (JSONObject) obj;
+                JSONArray ordering = (JSONArray) message.get("Ordering");
+                for (int i = 0; i<ordering.size();i++){
+                    String myMessage = (String) ordering.get(i);
+                    order.add(myMessage);
+                }
+                mainList.add(order);
+            }
+        } catch (FileNotFoundException exception) {
+            exception.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        } catch (ParseException exception) {
+            exception.printStackTrace();
+        }
+        return mainList;
     }
 }

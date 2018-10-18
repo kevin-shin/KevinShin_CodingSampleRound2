@@ -30,15 +30,13 @@ public class guestMessage {
         System.out.println("Last Name: ");
         String lastName = scanner.nextLine();
 
-        System.out.println("Type 'Messages' to see preloaded templates, or 'Build' to create your own");
-        String userInput = scanner.nextLine();
+        System.out.println("Here are the available message templates: ");
 
         Guest guest = new Guest(firstName, lastName);
         Company company = new Company(selectedCompany);
         guestMessage guestMessage = new guestMessage(guest,company);
         GuestManager guestmanager = new GuestManager();
         CompanyManager companyManager = new CompanyManager();
-
 
         List guests = guestmanager.allGuests("/Users/kevinshin/Desktop/KevinShin - CodingSample/CodingProject/Guests.json");
         List companies = companyManager.allCompanies("/Users/kevinshin/Desktop/KevinShin - CodingSample/CodingProject/Companies.json");
@@ -55,13 +53,20 @@ public class guestMessage {
                 guestMessage.setCompany(sampleCompany);
             }
         }
-        sampleMessages sampleMessages = new sampleMessages(guestMessage.guest, guestMessage.company);
-        ArrayList ordering = sampleMessages.returnOrdering("/Users/kevinshin/Desktop/KevinShin - CodingSample/CodingProject/testMessage.json");
 
-        if (userInput.equalsIgnoreCase("Messages")){
-            sampleMessages sample = new sampleMessages(guestMessage.guest, guestMessage.company);
-            sample.buildMessage("/Users/kevinshin/Desktop/KevinShin - CodingSample/CodingProject/testMessage.json");
+        sampleMessages sample = new sampleMessages(guestMessage.guest, guestMessage.company);
+        sample.buildMessage("/Users/kevinshin/Desktop/KevinShin - CodingSample/CodingProject/messageTemplate.json");
+
+        System.out.println("\n" + "Please select a message by typing its index, or type '0' to create your own");
+        int answer = scanner.nextInt();
+        if (answer == 0) {
         }
+        else {
+            System.out.println("Great! Here is the final message: ");
+            System.out.println(sample.returnMessage(answer));
+        }
+
+
     }
 
     private void setGuest(Guest guest){
