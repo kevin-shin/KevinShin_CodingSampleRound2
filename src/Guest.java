@@ -16,6 +16,11 @@ public class Guest {
         this.endTimestamp = endTimestamp;
     }
 
+    public Guest(String firstName, String lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public long getroomNumber(){
         return roomNumber;
     }
@@ -37,5 +42,14 @@ public class Guest {
     public String toString(){
         String description = firstName + " " + lastName;
         return description;
+    }
+
+    public boolean equals(Object obj) {
+        if(obj != null && obj instanceof Guest) {
+            Guest guest = (Guest) obj;
+            return (guest.firstName.equals(this.firstName) && guest.lastName.equals(this.lastName));
+        } else {
+            return false;
+        }
     }
 }

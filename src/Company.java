@@ -11,6 +11,10 @@ public class Company {
         this.timezone = timezone;
     }
 
+    public Company(String company){
+        this.company = company;
+    }
+
     public long getId() {
         return id;
     }
@@ -30,5 +34,14 @@ public class Company {
     public String toString(){
         String description = company + " in " + city + " at " + timezone + " timezone.";
         return description;
+    }
+
+    public boolean equals(Object obj) {
+        if(obj != null && obj instanceof Company) {
+            Company company = (Company) obj;
+            return (company.company.equals(this.company));
+        } else {
+            return false;
+        }
     }
 }

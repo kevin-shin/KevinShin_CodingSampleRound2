@@ -16,6 +16,7 @@ public class CompanyManager {
 
     public List<Company> allCompanies(String filename) {
         JSONParser jsonParser = new JSONParser();
+
         try {
             JSONArray data = (JSONArray) jsonParser.parse(new FileReader(filename));
             for (Object obj : data) {
@@ -24,7 +25,6 @@ public class CompanyManager {
                 String companyName = (String) companyObject.get("company");
                 String city = (String) companyObject.get("city");
                 String timezone = (String) companyObject.get("timezone");
-
 
                 Company company = new Company(companyName, id, city, timezone);
                 list.add(company);
