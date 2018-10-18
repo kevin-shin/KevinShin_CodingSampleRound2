@@ -60,6 +60,15 @@ public class guestMessage {
         System.out.println("\n" + "Please select a message by typing its index, or type '0' to create your own");
         int answer = scanner.nextInt();
         if (answer == 0) {
+            System.out.println("In order to create a template, please type a string below, using the following guidelines: ");
+            System.out.println("-use NAME when template should include guest name");
+            System.out.println("-use COMPANY when template should include company name");
+            System.out.println("-use ROOM when template should include room number");
+            String template = scanner.nextLine();
+
+
+
+
         }
         else {
             System.out.println("Great! Here is the final message: ");
