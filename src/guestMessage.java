@@ -64,26 +64,22 @@ public class guestMessage {
             System.out.println("-use NAME when template should include guest name");
             System.out.println("-use COMPANY when template should include company name");
             System.out.println("-use ROOM when template should include room number");
-            String template = scanner.nextLine();
+            System.out.println("Please keep in mind that a greeting variable is attached to the front when composing " +
+                    "your message.");
 
+            buildMessage buildMessage = new buildMessage();
+            buildMessage.writeNew("/Users/kevinshin/Desktop/KevinShin - CodingSample/CodingProject/messageTemplate.json");
 
-
-
+            System.out.println("Template saved to new JSON File.");
         }
         else {
             System.out.println("Great! Here is the final message: ");
             System.out.println(sample.returnMessage(answer));
         }
-
-
     }
 
     private void setGuest(Guest guest){
         this.guest = guest;
-    }
-
-    private void setRoomNumber(long number){
-        this.roomNumber = number;
     }
 
     private void setCompany(Company company){

@@ -55,6 +55,7 @@ public class sampleMessages {
                     i++;
                 }
             }
+
             this.messageOptions = messages;
 
         } catch (FileNotFoundException exception) {
@@ -94,30 +95,5 @@ public class sampleMessages {
         String string4 = (String) messageTemplate.get("4");
         return string4;
 
-    }
-
-    public ArrayList<ArrayList<String>> returnOrdering(String filename) {
-        ArrayList<ArrayList<String>> mainList = new ArrayList<>();
-        JSONParser jsonParser = new JSONParser();
-        try {
-            JSONArray messageTemplates = (JSONArray) jsonParser.parse(new FileReader(filename));
-            for (Object obj : messageTemplates) {
-                ArrayList<String> order = new ArrayList<>();
-                JSONObject message = (JSONObject) obj;
-                JSONArray ordering = (JSONArray) message.get("Ordering");
-                for (int i = 0; i<ordering.size();i++){
-                    String myMessage = (String) ordering.get(i);
-                    order.add(myMessage);
-                }
-                mainList.add(order);
-            }
-        } catch (FileNotFoundException exception) {
-            exception.printStackTrace();
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        } catch (ParseException exception) {
-            exception.printStackTrace();
-        }
-        return mainList;
     }
 }
