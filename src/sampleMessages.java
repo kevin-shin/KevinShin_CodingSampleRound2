@@ -21,7 +21,6 @@ public class sampleMessages {
         this.company = company;
 }
 
-
     public String buildMessage(String filename){
         greetingVariable greetingVariable = new greetingVariable(this.company, this.guest);
         String testMessage = "";
