@@ -7,19 +7,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class buildMessage {
-    private String[] ordering;
     private String template;
-    private JSONObject message;
-    private JSONArray ordering2;
-    private Guest guest;
-    private Company company;
-
 
     public buildMessage(){
     }

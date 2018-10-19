@@ -1,6 +1,4 @@
 import java.util.*;
-import java.text.*;
-
 
 public class greetingVariable {
     private Company company;
