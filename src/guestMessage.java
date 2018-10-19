@@ -16,8 +16,9 @@ public class guestMessage {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter Company Name: ");
+        boolean nextMessage = true;
+        do
+            { System.out.println("Enter Company Name: ");
         String selectedCompany = scanner.nextLine();
         System.out.println("--Guest Information--");
         System.out.println("First Name: ");
@@ -71,6 +72,15 @@ public class guestMessage {
             System.out.println("Great! Here is the final message: ");
             System.out.println(sample.returnMessage(answer));
         }
+                System.out.println("\n");
+                System.out.println("Would you like to compose another message?");
+                scanner.nextLine();
+                String userAnswer = scanner.nextLine();
+                if (userAnswer.equalsIgnoreCase("No")){
+                    nextMessage = false;
+            }
+            }
+        while (nextMessage);
     }
 
     private void setGuest(Guest guest){
