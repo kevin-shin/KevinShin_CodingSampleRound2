@@ -34,8 +34,8 @@ public class guestMessage {
         GuestManager guestmanager = new GuestManager();
         CompanyManager companyManager = new CompanyManager();
 
-        List guests = guestmanager.allGuests("/Users/kevinshin/Desktop/KevinShin - CodingSample/CodingProject/Guests.json");
-        List companies = companyManager.allCompanies("/Users/kevinshin/Desktop/KevinShin - CodingSample/CodingProject/Companies.json");
+        List guests = guestmanager.allGuests("../data/Guests.json");
+        List companies = companyManager.allCompanies("../data/Companies.json");
 
         for (int i = 0; i < guests.size(); i++){
             Guest sampleGuest = (Guest) guests.get(i);
@@ -51,7 +51,7 @@ public class guestMessage {
         }
 
         sampleMessages sample = new sampleMessages(guestMessage.guest, guestMessage.company);
-        sample.buildMessage("/Users/kevinshin/Desktop/KevinShin - CodingSample/CodingProject/messageTemplate.json");
+        sample.buildMessage("../data/messageTemplate.json");
 
         System.out.println("\n" + "Please select a message by typing its index, or type '0' to create your own");
         int answer = scanner.nextInt();
@@ -64,7 +64,7 @@ public class guestMessage {
                     "your message.");
 
             buildMessage buildMessage = new buildMessage();
-            buildMessage.writeNew("/Users/kevinshin/Desktop/KevinShin - CodingSample/CodingProject/messageTemplate.json");
+            buildMessage.writeNew("../data/Guests.json/messageTemplate.json");
 
             System.out.println("Template saved to new JSON File.");
         }

@@ -82,7 +82,7 @@ public class buildMessage {
 
             data.add(object);
 
-            FileWriter writer = new FileWriter("/Users/kevinshin/Desktop/KevinShin - CodingSample/CodingProject/messageTemplate.json");
+            FileWriter writer = new FileWriter("../data/Guests.json");
             writer.write(data.toJSONString());
             writer.close();
 
