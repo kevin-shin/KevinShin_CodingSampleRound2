@@ -22,26 +22,27 @@ public class buildMessage {
         this.tokens = new ArrayList<>(Arrays.asList("firstName", "lastName", "roomNumber","company","city"));
     }
 
-    public String writeNew() {
+    public JSONObject writeNew() {
         System.out.println("In order to create a template, please type a string below, using the following guidelines: ");
-        System.out.println("-use firstName when template should include Guest's first name");
-        System.out.println("-use lastName when template should include Guest's last name");
-        System.out.println("-use roomNumber when template should include the guest's room number");
-        System.out.println("-use company when template should include company name");
-        System.out.println("-use city when template should include company's city location");
+        System.out.println("- use firstName when template should include Guest's first name");
+        System.out.println("- use lastName when template should include Guest's last name");
+        System.out.println("- use roomNumber when template should include the guest's room number");
+        System.out.println("- use company when template should include company name");
+        System.out.println("- use city when template should include company's city location");
 
         System.out.println(">>");
         String userInput = scanner.nextLine();
-
-        String[] userMod = userInput.split("([.,!?:;'\\\"-]|\\\\s)+");
+        String[] userMod = userInput.split("\\W+");
         ArrayList<String> tokens = returnTokens(userMod);
-
         String modifiedString = textify(userInput,tokens);
-        MessageFormat form = new MessageFormat(modifiedString);
-        String message = form.format(tokens.toArray());
 
-        return message;
+        JSONObject object = new JSONObject();
+        object.put("text",modifiedString);
+        object.put("tokens",tokens);
+
+        return object;
     }
+
 
     public void save(String filename){
         try {
@@ -56,16 +57,16 @@ public class buildMessage {
             writer.close();
 
 
-        }catch (FileNotFoundException exception) {
+        } catch (FileNotFoundException exception) {
             exception.printStackTrace();
         } catch (IOException exception) {
             exception.printStackTrace();
         } catch (ParseException exception) {
             exception.printStackTrace();
         }
-
     }
-    private ArrayList<String> returnTokens(String[] userSplit){
+
+    public ArrayList<String> returnTokens(String[] userSplit){
         ArrayList<String> toReturn = new ArrayList<>();
         for (String string: userSplit) {
             if (this.tokens.contains(string)){
@@ -84,4 +85,12 @@ public class buildMessage {
     return modifiedString;
     }
 
+    private JSONArray convertJSONArray(ArrayList<String> tokens){
+        JSONArray jsonArray = new JSONArray();
+        for (String string: tokens) {
+            jsonArray.add(string);
+        }
+
+        return jsonArray;
+    }
 }

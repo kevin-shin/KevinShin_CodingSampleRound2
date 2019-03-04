@@ -1,3 +1,7 @@
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -56,8 +60,17 @@ public class Program {
         int answer = scanner.nextInt();
         if (answer == 0) {
             buildMessage buildMessage = new buildMessage();
-            System.out.println(buildMessage.writeNew());
-            System.out.println("Here is a sample message. Do you want to save this template? Yes/No");
+            JSONObject object = buildMessage.writeNew();
+            System.out.println(object);
+
+            Object[] tokens = tokenizer.tokenize(object);
+            MessageFormat form = new MessageFormat((String)object.get("text"));
+            String message = form.format(tokens);
+
+            System.out.println("Here is a sample message: ");
+            System.out.println(message);
+
+            System.out.println("Do you want to save this template? Yes/No");
             scanner.nextLine();
             String userAnswer = scanner.nextLine();
             if (userAnswer.equalsIgnoreCase("Yes")) {
