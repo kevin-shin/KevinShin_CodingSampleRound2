@@ -32,6 +32,10 @@ public class Tokenizer {
             if (tokens.get(i).equalsIgnoreCase("city")){
                 userInfo.add(this.company.getCity());
             }
+            if (tokens.get(i).equalsIgnoreCase("greeting")){
+                greetingVariable greeting = new greetingVariable(this.company, this.guest);
+                userInfo.add(greeting.returnGreeting());
+            }
         }
         return userInfo.toArray();
     }

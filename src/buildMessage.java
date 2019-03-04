@@ -19,7 +19,7 @@ public class buildMessage {
     private JSONParser jsonParser = new JSONParser();
 
     public buildMessage(){
-        this.tokens = new ArrayList<>(Arrays.asList("firstName", "lastName", "roomNumber","company","city"));
+        this.tokens = new ArrayList<>(Arrays.asList("firstName", "lastName", "roomNumber","company","city","greeting"));
     }
 
     public JSONObject writeNew() {
@@ -29,6 +29,7 @@ public class buildMessage {
         System.out.println("- use roomNumber when template should include the guest's room number");
         System.out.println("- use company when template should include company name");
         System.out.println("- use city when template should include company's city location");
+        System.out.println("- use greeting when template should include Greeting Message");
 
         System.out.println(">>");
         String userInput = scanner.nextLine();

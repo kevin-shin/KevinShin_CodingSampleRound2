@@ -8,8 +8,8 @@ public class greetingVariable {
         this.company = company;
         this.guest = guest;
     }
-    public String returnGreeting(long UnixTime) {
-        Date relevantTime = new Date(UnixTime * 1000L);
+    public String returnGreeting() {
+        Date relevantTime = new Date(this.guest.getstartTime() * 1000L);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(relevantTime);
         calendar.setTimeZone(TimeZone.getTimeZone(this.company.getTimezone()));
