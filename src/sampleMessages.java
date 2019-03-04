@@ -31,6 +31,7 @@ public class sampleMessages {
                 String message = form.format(tokens);
                 messageDrafts.add(message);
                 System.out.println(i +" - " + message);
+                i++;
             }
 
         } catch (FileNotFoundException exception) {

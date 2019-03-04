@@ -74,8 +74,8 @@ public class Program {
             scanner.nextLine();
             String userAnswer = scanner.nextLine();
             if (userAnswer.equalsIgnoreCase("Yes")) {
-                buildMessage.save("./data/messageTemplate.json");
-                System.out.println("Template saved to new JSON File.");
+                buildMessage.save("./data/messageTemplate.json", object);
+                System.out.println("Template saved to JSON File.");
             }
 
         } else {

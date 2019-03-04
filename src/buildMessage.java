@@ -44,11 +44,10 @@ public class buildMessage {
     }
 
 
-    public void save(String filename){
+    public void save(String filename, JSONObject object){
         try {
             JSONArray data = (JSONArray) jsonParser.parse(new FileReader(filename));
             long size = (long) data.size();
-            JSONObject object = new JSONObject();
             object.put("Index", size + 1);
             data.add(object);
 

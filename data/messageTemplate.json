@@ -1,5 +1,7 @@
 [
-  {"text": "Hello {0} and welcome to {1}. Room {2} is prepared for you.",
-    "tokens": ["firstName", "company","roomNumber"],
-    "Index":1}
-]
+  {"tokens":["firstName","company","roomNumber"],
+    "Index":1,
+    "text":"Hello {0} and welcome to {1}. Room {2} is prepared for you."},
+  {"tokens":["firstName","company","roomNumber"],
+    "Index":2,
+    "text":"Hello {0} and welcome to {1}! We hope you enjoy your stay in room {2}."}]
