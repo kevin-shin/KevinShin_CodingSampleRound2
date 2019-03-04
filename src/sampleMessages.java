@@ -5,32 +5,32 @@ import org.json.simple.parser.ParseException;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class sampleMessages {
-    private String[] messageOptions;
-    private Guest guest;
-    private Company company;
+    private Tokenizer tokenizer;
 
-    public sampleMessages() {
-}
+    public sampleMessages(Tokenizer tokenizer) {
+        this.tokenizer = tokenizer;
+    }
 
-    public String buildMessage(String filename){
-        String testMessage = "";
+    public ArrayList<String> buildMessage(String filename){
+        ArrayList<String> messageDrafts = new ArrayList<>();
         JSONParser jsonParser = new JSONParser();
+        int i = 1;
         try {
             JSONArray messageTemplates = (JSONArray) jsonParser.parse(new FileReader(filename));
             for (Object obj : messageTemplates) {
-                JSONObject message = (JSONObject) obj;
-                String messageTemplate = (String) message.get("text");
-                String[] tokens = convertJSONArray((JSONArray)message.get("tokens"));
+                JSONObject object = (JSONObject) obj;
+                Object[] tokens = tokenizer.tokenize(object);
 
+                String messageTemplate = (String) object.get("text");
                 MessageFormat form = new MessageFormat(messageTemplate);
-                System.out.println(form.format(tokens));
+                String message = form.format(tokens);
+                messageDrafts.add(message);
+                System.out.println(i +" - " + message);
             }
 
         } catch (FileNotFoundException exception) {
@@ -40,25 +40,6 @@ public class sampleMessages {
         } catch (ParseException exception) {
             exception.printStackTrace();
         }
-        return testMessage;
-    }
-    public String returnMessage(int index){
-        return this.messageOptions[index-1];
-    }
-
-    public void setGuest(Guest guest){
-        this.guest = guest;
-    }
-
-    public void setCompany(Company company){
-        this.company = company;
-    }
-
-    private String[] convertJSONArray(JSONArray array){
-        String[] newArray = new String[array.size()];
-        for (int i = 0; i < array.size(); i++) {
-            newArray[i] = (String) array.get(i);
-        }
-        return newArray;
+        return messageDrafts;
     }
 }
