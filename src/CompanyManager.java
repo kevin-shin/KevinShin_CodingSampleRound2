@@ -8,13 +8,13 @@ import org.json.simple.*;
 
 
 public class CompanyManager {
-    private List<Company> list;
+    private ArrayList<Company> list;
 
     public CompanyManager(){
         this.list = new ArrayList<>();
     }
 
-    public List<Company> allCompanies(String filename) {
+    public ArrayList<Company> allCompanies(String filename) {
         JSONParser jsonParser = new JSONParser();
 
         try {

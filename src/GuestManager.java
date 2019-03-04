@@ -15,8 +15,8 @@ public class GuestManager {
     }
 
 
-    public List<Guest> allGuests(String filename) {
-        List list = new ArrayList<>();
+    public ArrayList<Guest> allGuests(String filename) {
+        ArrayList list = new ArrayList<>();
         JSONParser jsonParser = new JSONParser();
         try {
             JSONArray data = (JSONArray) jsonParser.parse(new FileReader(filename));

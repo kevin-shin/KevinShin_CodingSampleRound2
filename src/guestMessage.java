@@ -1,19 +1,15 @@
+import java.lang.reflect.Array;
 import java.util.*;
 
 
 public class guestMessage {
     private Guest guest;
     private Company company;
-    private String greetingVariable;
-    private long roomNumber;
-    private long startTimestamp;
-    private long endTimestamp;
 
-    public guestMessage(Guest guest, Company company){
-        this.guest = guest;
-        this.company = company;
-    }
+    public guestMessage(){
+    }}
 
+    /*
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean nextMessage = true;
@@ -26,42 +22,41 @@ public class guestMessage {
         System.out.println("Last Name: ");
         String lastName = scanner.nextLine();
 
+        Guest sampleGuest = new Guest(firstName,lastName);
+        Company sampleCompany = new Company(selectedCompany);
+
         System.out.println("Here are the available message templates: ");
 
-        Guest guest = new Guest(firstName, lastName);
-        Company company = new Company(selectedCompany);
-        guestMessage guestMessage = new guestMessage(guest,company);
         GuestManager guestmanager = new GuestManager();
         CompanyManager companyManager = new CompanyManager();
+        sampleMessages sample = new sampleMessages();
 
-        List guests = guestmanager.allGuests("../data/Guests.json");
-        List companies = companyManager.allCompanies("../data/Companies.json");
+        ArrayList<Guest> guests = guestmanager.allGuests("../data/Guests.json");
+        ArrayList<Company> companies = companyManager.allCompanies("../data/Companies.json");
 
         for (int i = 0; i < guests.size(); i++){
-            Guest sampleGuest = (Guest) guests.get(i);
-            if (guest.equals(sampleGuest)){
-                guestMessage.setGuest(sampleGuest);
+            Guest loadedGuest = guests.get(i);
+            if (sampleGuest.equals(loadedGuest)){
+                sample.setGuest(loadedGuest);
             }
         }
         for (int i = 0; i<companies.size();i++){
-            Company sampleCompany = (Company) companies.get(i);
-            if (company.equals(sampleCompany)){
-                guestMessage.setCompany(sampleCompany);
+            Company loadedCompany = companies.get(i);
+            if (sampleCompany.equals(loadedCompany)){
+                sample.setCompany(sampleCompany);
             }
         }
 
-        sampleMessages sample = new sampleMessages(guestMessage.guest, guestMessage.company);
         sample.buildMessage("../data/messageTemplate.json");
 
-        System.out.println("\n" + "Please select a message by typing its index, or type '0' to create your own");
+
+        System.out.println("\n" + "Please select a message by specifying its index, or type '0' to create your own");
         int answer = scanner.nextInt();
         if (answer == 0) {
             System.out.println("In order to create a template, please type a string below, using the following guidelines: ");
             System.out.println("-use NAME when template should include guest name");
             System.out.println("-use COMPANY when template should include company name");
             System.out.println("-use ROOM when template should include room number");
-            System.out.println("Please keep in mind that a greeting variable is attached to the front when composing " +
-                    "your message.");
 
             buildMessage buildMessage = new buildMessage();
             buildMessage.writeNew("../data/messageTemplate.json");
@@ -93,12 +88,11 @@ public class guestMessage {
 
     public String toString(){
         String description = "Guest Name: " + guest.getFirstName() + " " + guest.getLastName()
-                + "\n" + "Company Name: "
-                + "\n" + "Room Number: " + roomNumber;
+                + "\n" + "Company Name: ";
         return description;
     }
     }
-
+*/
 
 
 

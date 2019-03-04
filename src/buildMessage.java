@@ -7,11 +7,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class buildMessage {
-    private String template;
 
     public buildMessage(){
     }
@@ -26,60 +26,20 @@ public class buildMessage {
             Scanner scanner = new Scanner(System.in);
 
             String userInput = scanner.nextLine();
-            this.template = userInput;
+            String[] tokens = {"COMPANY", "NAME", "ROOM"};
 
-            HashMap<String, String> messageMap = new HashMap<>();
-            String modified = userInput.replaceAll("NAME", "-");
-            modified = modified.replaceAll("COMPANY", "-");
-            modified = modified.replaceAll("ROOM", "-");
-            String[] message = modified.split("-");
+            String modifiedString = userInput;
+            for (int i = 0; i < tokens.length; i++) {
+                String delimiter = "{" + i + "}";
+                modifiedString = modifiedString.replaceAll(tokens[i],delimiter);
+            }
+
+            MessageFormat form = new MessageFormat(modifiedString);
+            System.out.println(form.format(tokens));
 
             JSONObject object = new JSONObject();
 
             object.put("Index", size + 1);
-
-            messageMap.put("1", " " + message[0]);
-            messageMap.put("2", message[1]);
-            messageMap.put("3", message[2]);
-            messageMap.put("4", message[3]);
-
-            object.put("Message", messageMap);
-
-            if (this.template.indexOf("NAME") < this.template.indexOf("COMPANY")
-                    && this.template.indexOf("COMPANY") < this.template.indexOf("ROOM")) {
-                JSONArray jsonArray = new JSONArray();
-                jsonArray.add("name");
-                jsonArray.add("company");
-                jsonArray.add("room");
-                object.put("Ordering",jsonArray);
-            }
-
-            if (this.template.indexOf("NAME") < this.template.indexOf("ROOM")
-                    && this.template.indexOf("ROOM") < this.template.indexOf("COMPANY")) {
-                JSONArray jsonArray = new JSONArray();
-                jsonArray.add("name");
-                jsonArray.add("room");
-                jsonArray.add("company");
-                object.put("Ordering",jsonArray);
-            }
-
-            if (this.template.indexOf("COMPANY") < this.template.indexOf("NAME")
-                    && this.template.indexOf("NAME") < this.template.indexOf("ROOM")) {
-                JSONArray jsonArray = new JSONArray();
-                jsonArray.add("company");
-                jsonArray.add("name");
-                jsonArray.add("room");
-                object.put("Ordering",jsonArray);
-            }
-            if (this.template.indexOf("COMPANY") < this.template.indexOf("ROOM")
-                    && this.template.indexOf("ROOM") < this.template.indexOf("NAME")) {
-                JSONArray jsonArray = new JSONArray();
-                jsonArray.add("company");
-                jsonArray.add("room");
-                jsonArray.add("name");
-                object.put("Ordering",jsonArray);
-            }
-
             data.add(object);
 
             FileWriter writer = new FileWriter("../data/messageTemplate.json");

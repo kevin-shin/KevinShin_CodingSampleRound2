@@ -1,1 +1,5 @@
-[{"Message":{"1":" ","2":", and welcome to ","3":"! Room ","4":" is now ready for you. Enjoy your stay, and let us know if you need anything."},"Ordering":["name","company","room"],"Index":1},{"Message":{"1":" ","2":", and thank you for choosing ","3":". We have prepared Room ","4":" for you. Please let us know if you need anything!"},"Ordering":["name","company","room"],"Index":2},{"Message":{"1":"! Thank you for choosing ","2":" as your hotel, ","3":". Please see the front desk for information on checking out of Room ","4":". We hope you've enjoyed your stay!"},"Ordering":["company","name","room"],"Index":3}]
+[
+  {"text": "Hello {0} and welcome to {1}. Room {2} is prepared for you.",
+    "tokens": ["NAME", "COMPANY","ROOM"],
+    "Index":1}
+]
