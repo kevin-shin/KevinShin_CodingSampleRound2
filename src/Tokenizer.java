@@ -1,4 +1,3 @@
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
@@ -33,7 +32,8 @@ public class Tokenizer {
                 userInfo.add(this.company.getCity());
             }
             if (tokens.get(i).equalsIgnoreCase("greeting")){
-                greetingVariable greeting = new greetingVariable(this.company, this.guest);
+                //greetingVariable greeting = new greetingVariable(this.company, this.guest);
+                greetingVariable greeting = new greetingVariable(this.company);
                 userInfo.add(greeting.returnGreeting());
             }
         }

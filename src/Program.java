@@ -1,6 +1,4 @@
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -19,34 +17,61 @@ public class Program {
     }
 
     public void run() {
+
+        //---------INIT---------
         Scanner scanner = new Scanner(System.in);
         this.guestManager = new GuestManager();
         this.companyManager = new CompanyManager();
 
+        this.guests = guestManager.allGuests("./data/Guests.json");
+        this.companies = companyManager.allCompanies("./data/Companies.json");
+
+        System.out.println("------COMPANY INFORMATION------");
         System.out.println("Enter Company Name: ");
         String selectedCompany = scanner.nextLine();
-        System.out.println("--Guest Information--");
+
+        boolean acceptedCompany = false;
+        do {
+            Company tempCompany = new Company(selectedCompany);
+            boolean companyNoRecord = true;
+            for (int i = 0; i < companies.size(); i++) {
+                Company loadedCompany = companies.get(i);
+                if (loadedCompany.equals(tempCompany)) {
+                    this.company = loadedCompany;
+                    companyNoRecord = false;
+                    acceptedCompany = true;
+                }
+            }
+            if (companyNoRecord){
+                System.out.println("Company not found in records. Please try again.");
+            }
+        } while (!acceptedCompany);
+
+        System.out.println("------GUEST INFORMATION------");
         System.out.println("First Name: ");
         String firstName = scanner.nextLine();
         System.out.println("Last Name: ");
         String lastName = scanner.nextLine();
 
-        this.guests = guestManager.allGuests("./data/Guests.json");
-        this.companies = companyManager.allCompanies("./data/Companies.json");
+        boolean acceptedGuest = false;
+        do {
+            Guest tempGuest = new Guest(firstName, lastName);
+            boolean guestNoRecord = true;
 
-        for (int i = 0; i < guests.size(); i++) {
-            Guest loadedGuest = guests.get(i);
-            if (loadedGuest.getFirstName().equalsIgnoreCase(firstName) &&
-                    loadedGuest.getLastName().equalsIgnoreCase(lastName)) {
+            for (int i = 0; i < guests.size(); i++) {
+                Guest loadedGuest = guests.get(i);
+                if (loadedGuest.equals(tempGuest)) {
                     this.guest = loadedGuest;
+                    guestNoRecord = false;
+                    acceptedGuest = true;
+                }
             }
-        }
-        for (int i = 0; i < companies.size(); i++) {
-            Company loadedCompany = companies.get(i);
-            if (loadedCompany.getCompany().equalsIgnoreCase(selectedCompany)) {
-                    this.company = loadedCompany;
+
+            if (guestNoRecord) {
+                System.out.println("Guest not found in records. Please try again.");
             }
-        }
+        } while (!acceptedGuest);
+
 
         this.tokenizer = new Tokenizer(this.guest, this.company);
         this.sample = new sampleMessages(tokenizer);
@@ -86,4 +111,5 @@ public class Program {
             System.out.println(messageDrafts.get(answer - 1));
         }
     }
+
 }
