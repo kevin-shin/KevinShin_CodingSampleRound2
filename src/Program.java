@@ -64,7 +64,10 @@ public class Program {
             System.out.println(object);
 
             Object[] tokens = tokenizer.tokenize(object);
-            MessageFormat form = new MessageFormat((String)object.get("text"));
+            String template = (String)object.get("text");
+            template = template.replaceAll("'","''"); //MessageFormat requires double apostrophe
+
+            MessageFormat form = new MessageFormat(template);
             String message = form.format(tokens);
 
             System.out.println("Here is a sample message: ");

@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -33,7 +32,11 @@ public class buildMessage {
 
         System.out.println(">>");
         String userInput = scanner.nextLine();
-        String[] userMod = userInput.split("\\W+");
+        String[] userMod = userInput.split("[^a-zA-Z']+");
+        for (String string: userMod
+             ) {
+            System.out.println("String: " + string);
+        }
         ArrayList<String> tokens = returnTokens(userMod);
         String modifiedString = textify(userInput,tokens);
 
