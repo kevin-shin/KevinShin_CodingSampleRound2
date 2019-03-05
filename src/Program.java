@@ -26,12 +26,18 @@ public class Program {
         this.guests = guestManager.allGuests("./data/Guests.json");
         this.companies = companyManager.allCompanies("./data/Companies.json");
 
-        System.out.println("------COMPANY INFORMATION------");
-        System.out.println("Enter Company Name: ");
-        String selectedCompany = scanner.nextLine();
+        System.out.println(
+                "---------------------------------------------------------------------------------------------" + "\n" +
+                "|       Welcome to the Message Generator! This software allows the user to efficiently       |" + "\n" +
+                "|       generate        |
 
+
+        );
+        System.out.println("------COMPANY INFORMATION------");
         boolean acceptedCompany = false;
         do {
+            System.out.println("Enter Company Name: ");
+            String selectedCompany = scanner.nextLine();
             Company tempCompany = new Company(selectedCompany);
             boolean companyNoRecord = true;
             for (int i = 0; i < companies.size(); i++) {
@@ -48,13 +54,12 @@ public class Program {
         } while (!acceptedCompany);
 
         System.out.println("------GUEST INFORMATION------");
-        System.out.println("First Name: ");
-        String firstName = scanner.nextLine();
-        System.out.println("Last Name: ");
-        String lastName = scanner.nextLine();
-
         boolean acceptedGuest = false;
         do {
+            System.out.println("First Name: ");
+            String firstName = scanner.nextLine();
+            System.out.println("Last Name: ");
+            String lastName = scanner.nextLine();
             Guest tempGuest = new Guest(firstName, lastName);
             boolean guestNoRecord = true;
 
@@ -66,7 +71,6 @@ public class Program {
                     acceptedGuest = true;
                 }
             }
-
             if (guestNoRecord) {
                 System.out.println("Guest not found in records. Please try again.");
             }
