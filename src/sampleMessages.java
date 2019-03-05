@@ -27,13 +27,13 @@ public class sampleMessages {
                 Object[] tokens = tokenizer.tokenize(object);
 
                 String messageTemplate = (String) object.get("text");
+                messageTemplate = messageTemplate.replaceAll("'","''");
                 MessageFormat form = new MessageFormat(messageTemplate);
                 String message = form.format(tokens);
                 messageDrafts.add(message);
                 System.out.println(i +" - " + message);
                 i++;
             }
-
         } catch (FileNotFoundException exception) {
             exception.printStackTrace();
         } catch (IOException exception) {
