@@ -1,3 +1,7 @@
+/**
+ * Company class, represents a company object.
+ */
+
 public class Company {
     private long id;
     private String company;

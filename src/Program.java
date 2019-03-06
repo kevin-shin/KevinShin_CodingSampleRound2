@@ -29,11 +29,15 @@ public class Program {
         System.out.println(
                 "---------------------------------------------------------------------------------------------" + "\n" +
                 "|       Welcome to the Message Generator! This software allows the user to efficiently       |" + "\n" +
-                "|       generate        |
-
-
+                "|       generate personalized messages based on data uploaded via a JSON file on guest       |" + "\n" +
+                "|       and company information.                                                             |" + "\n" +
+                 "---------------------------------------------------------------------------------------------"
         );
-        System.out.println("------COMPANY INFORMATION------");
+
+        System.out.println("To start, begin by specifying company and guest data: ");
+        System.out.println("--------COMPANY INFORMATION--------");
+
+        //prompts user to enter company name; loops until company is matched with JSON data
         boolean acceptedCompany = false;
         do {
             System.out.println("Enter Company Name: ");
@@ -53,6 +57,7 @@ public class Program {
             }
         } while (!acceptedCompany);
 
+        //Similar logic to company
         System.out.println("------GUEST INFORMATION------");
         boolean acceptedGuest = false;
         do {
@@ -77,16 +82,16 @@ public class Program {
         } while (!acceptedGuest);
 
 
+        //Initialize tokenizer and sampleMessages generator
         this.tokenizer = new Tokenizer(this.guest, this.company);
         this.sample = new sampleMessages(tokenizer);
 
         System.out.println("Here are the available message templates: ");
-
         ArrayList<String> messageDrafts = sample.buildMessage("./data/messageTemplate.json");
-
         System.out.println("\n" + "Please select a message by specifying its index, or type '0' to create your own");
 
         int answer = scanner.nextInt();
+        //User has specified that they want to create their own template
         if (answer == 0) {
             buildMessage buildMessage = new buildMessage();
             JSONObject object = buildMessage.writeNew();
@@ -110,6 +115,10 @@ public class Program {
                 System.out.println("Template saved to JSON File.");
             }
 
+            System.out.println("Here is the final message: " );
+            System.out.println(message);
+
+        //return message picked
         } else {
             System.out.println("Great! Here is the final message: ");
             System.out.println(messageDrafts.get(answer - 1));

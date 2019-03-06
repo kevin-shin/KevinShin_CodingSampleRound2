@@ -6,6 +6,12 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.json.simple.*;
 
+/**
+ * Wrapper class to extract data from JSON file and format for ease of access.
+ * Called when program is initialize to load Guests.json, create a Guest object based on the data read,
+ * and store in an ArrayList.
+ */
+
 
 public class GuestManager {
     private List<Guest> list;
@@ -13,7 +19,6 @@ public class GuestManager {
     public GuestManager(){
         this.list = new ArrayList();
     }
-
 
     public ArrayList<Guest> allGuests(String filename) {
         ArrayList list = new ArrayList<>();
@@ -42,25 +47,20 @@ public class GuestManager {
         }
         return list;
     }
+
+    //Getters for nested data structures inside the JSONObject representing one guest.
     public long getRoomNumber(JSONObject guest){
         JSONObject reservation = (JSONObject) guest.get("reservation");
-
         long roomNumber = (long) reservation.get("roomNumber");
         return roomNumber;
-
     }
-
     public long getstartTimestamp(JSONObject guest){
         JSONObject reservation = (JSONObject) guest.get("reservation");
-
         long startTimestamp = (long) reservation.get("startTimestamp");
         return startTimestamp;
-
     }
-
     public long getendTimestamp(JSONObject guest){
         JSONObject reservation = (JSONObject) guest.get("reservation");
-
         long endTimestamp = (long) reservation.get("endTimestamp");
         return endTimestamp;
 

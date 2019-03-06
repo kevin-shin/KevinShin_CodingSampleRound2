@@ -6,6 +6,11 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.json.simple.*;
 
+/**
+ * Wrapper class to extract data from JSON file and format for ease of access.
+ * Called when program is initialize to load Companies.json, create a Company object based on the data read,
+ * and store in an ArrayList.
+ */
 
 public class CompanyManager {
     private ArrayList<Company> list;
@@ -16,7 +21,6 @@ public class CompanyManager {
 
     public ArrayList<Company> allCompanies(String filename) {
         JSONParser jsonParser = new JSONParser();
-
         try {
             JSONArray data = (JSONArray) jsonParser.parse(new FileReader(filename));
             for (Object obj : data) {

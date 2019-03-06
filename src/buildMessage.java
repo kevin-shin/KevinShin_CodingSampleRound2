@@ -18,7 +18,13 @@ public class buildMessage {
     private JSONParser jsonParser = new JSONParser();
 
     public buildMessage(){
-        this.tokens = new ArrayList<>(Arrays.asList("firstName", "lastName", "roomNumber","company","city","greeting"));
+        /* A token is a word reserved to signify a place in the message where guest/company data should replace the token.
+           For example, "firstName" will be replaced by the user's first name when generating messages.
+           For this reason, the ArrayList tokens is declared as a private instance variable which can be easily altered to reflect
+           changes in JSON data structure. For the purpose of this project, we assume that these six pieces of information
+           will be used.
+         */
+        this.tokens = new ArrayList<>(Arrays.asList("firstName","lastName","roomNumber","company","city","greeting"));
     }
 
     public JSONObject writeNew() {
@@ -32,11 +38,15 @@ public class buildMessage {
 
         System.out.println(">>");
         String userInput = scanner.nextLine();
+
+        /*
+        The idea behind this is the following: the user will input some string, which contains tokens based on where in the
+        message the token should be substituted for guest/company data. The userInput is split so that this data can be
+        passed to returnTokens(), a function which will return an ArrayList of all the tokens found in the string. Thus,
+        the string and the appropriate tokens are passed to textify(), which returns the userInput formatted into
+        MessageFormat syntax.
+         */
         String[] userMod = userInput.split("[^a-zA-Z']+");
-        for (String string: userMod
-             ) {
-            System.out.println("String: " + string);
-        }
         ArrayList<String> tokens = returnTokens(userMod);
         String modifiedString = textify(userInput,tokens);
 
@@ -47,19 +57,18 @@ public class buildMessage {
         return object;
     }
 
-
+    /**
+     *
+     * @param filename - name of JSON file to be used to save a given message template
+     * @param object - JSONObject representing one message template.
+     */
     public void save(String filename, JSONObject object){
         try {
             JSONArray data = (JSONArray) jsonParser.parse(new FileReader(filename));
-            long size = (long) data.size();
-            object.put("Index", size + 1);
             data.add(object);
-
             FileWriter writer = new FileWriter("./data/messageTemplate.json");
             writer.write(data.toJSONString());
             writer.close();
-
-
         } catch (FileNotFoundException exception) {
             exception.printStackTrace();
         } catch (IOException exception) {
@@ -69,6 +78,10 @@ public class buildMessage {
         }
     }
 
+    /**
+     * @param userSplit - String array representing split text
+     * @return - ArrayList of tokens found inside text
+     */
     public ArrayList<String> returnTokens(String[] userSplit){
         ArrayList<String> toReturn = new ArrayList<>();
         for (String string: userSplit) {
@@ -79,6 +92,12 @@ public class buildMessage {
         return toReturn;
     }
 
+    /**
+     *
+     * @param input - userInput
+     * @param tokens - tokens found in userInput string
+     * @return - String formatted to be accepted by MessageFormat methods
+     */
     private String textify(String input, ArrayList<String> tokens) {
         String modifiedString = input;
         for (int i = 0; i < tokens.size(); i++) {
@@ -86,14 +105,5 @@ public class buildMessage {
             modifiedString = modifiedString.replaceAll(tokens.get(i), delimiter);
         }
     return modifiedString;
-    }
-
-    private JSONArray convertJSONArray(ArrayList<String> tokens){
-        JSONArray jsonArray = new JSONArray();
-        for (String string: tokens) {
-            jsonArray.add(string);
-        }
-
-        return jsonArray;
     }
 }
