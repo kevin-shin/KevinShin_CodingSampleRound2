@@ -77,11 +77,11 @@ public class Program {
         this.tokenizer = new Tokenizer(this.guest, this.company);
         this.sample = new sampleMessages(tokenizer);
         boolean properInput = false;
-        System.out.println("Here are the available message templates: ");
-        System.out.println("Please select a message by specifying its index, or type '0' to create your own");
-        ArrayList<String> messageDrafts = sample.buildMessage("./data/messageTemplate.json");
 
         do {
+            System.out.println("Here are the available message templates: ");
+            ArrayList<String> messageDrafts = sample.buildMessage("./data/messageTemplate.json");
+            System.out.println("\n"+"Please select a message by specifying its index, or type '0' to create your own");
             System.out.println(">>> ");
             int answer = scanner.nextInt();
             //User has specified that they want to create their own template
