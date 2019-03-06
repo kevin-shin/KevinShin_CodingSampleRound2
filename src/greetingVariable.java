@@ -6,7 +6,6 @@ import java.util.TimeZone;
 /**
  * Class used to generate greetingVariable, corresponding to the time of day. greetingVariable needs the capacity
  * to account for differences in time based on the company's timezone, and is thus constructed with a Company object.
- *
  */
 
 public class greetingVariable {
